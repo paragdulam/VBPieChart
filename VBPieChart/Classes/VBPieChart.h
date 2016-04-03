@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "VBPiePiece_private.h"
 
 typedef NS_OPTIONS(NSUInteger, VBPieChartAnimationOptions) {
     VBPieChartAnimationFanAll                     = 1 <<  0,
@@ -56,7 +57,11 @@ typedef CGPoint (^VBLabelBlock)(CALayer*layer, NSInteger index);
               animation:YES];
  @endcode
  */
+
+@protocol VBPieChartTouchDelegate;
+
 @interface VBPieChart : UIView
+@property (nonatomic,assign) id<VBPieChartTouchDelegate>delegate;
 
 /*!
  @abstract Option to specify position of labels on the chart.
@@ -215,4 +220,11 @@ typedef CGPoint (^VBLabelBlock)(CALayer*layer, NSInteger index);
 @property (nonatomic, strong) UIColor *strokeColor DEPRECATED_MSG_ATTRIBUTE("Use strokeColor parameter for value");
 @property (nonatomic) BOOL enableStrokeColor DEPRECATED_MSG_ATTRIBUTE("Use strokeColor parameter for value");
 @end
+
+@protocol VBPieChartTouchDelegate <NSObject>
+
+- (void) chart:(VBPieChart *) chart didTouchPieceWithData:(VBPiePieceData *) data;
+
+@end
+
 

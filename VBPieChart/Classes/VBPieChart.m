@@ -436,6 +436,9 @@ static __inline__ CGFloat CGPointDistanceBetweenTwoPoints(CGPoint point1, CGPoin
             [_hitLayer animateToAccent:0];
         }
     }
+    if ([self.delegate respondsToSelector:@selector(chart:didTouchPieceWithData:)]) {
+        [self.delegate chart:self didTouchPieceWithData:_hitLayer.data];
+    }
 }
 
 @end
